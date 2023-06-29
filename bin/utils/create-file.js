@@ -77,3 +77,52 @@ test("it renders a correct snapshot", () => {
 
 	logger(`${camelFileName}.test.${type} created`);
 }
+
+export function createActionsFile(pathTo, type) {
+	fs.writeFileSync(`${pathTo}actions.${type}`, '');
+
+	logger(`${pathTo}actions.${type} created`);
+}
+
+export function createTypesFile(pathTo, type) {
+	fs.writeFileSync(`${pathTo}types.${type}`, '');
+
+	logger(`${pathTo}types.${type} created`);
+}
+
+export function createReducerFile(pathTo, type, camelReducerName) {
+	const reducerStream = fs.createWriteStream(`${pathTo}reducer.${type}`, 'utf8');
+
+	reducerStream.once('open', function () {
+		reducerStream.write('import { initialState } from "./state";\n');
+		reducerStream.write(`
+export const ${camelReducerName}Reducer = (state = initialState, action) => {
+  switch (action.type) {
+  	default:
+      return {
+        ...state,
+      }
+  }
+}
+		`)
+		reducerStream.end();
+	})
+
+	logger(`${pathTo}reducer.${type} created`);
+}
+
+export function createStateFile(pathTo, type) {
+	const stateStream = fs.createWriteStream(`${pathTo}state.${type}`, 'utf8');
+
+	stateStream.once('open', function () {
+		stateStream.write(`
+export const initialState = {
+    error: null,
+    loading: false,
+};
+		`)
+		stateStream.end();
+	})
+
+	logger(`${pathTo}state.${type} created`);
+}
