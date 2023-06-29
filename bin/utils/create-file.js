@@ -38,7 +38,7 @@ export function createJSXFile(camelFileName, pathTo, type, styleType = FILE_EXTE
 		tsxStream.end();
 	});
 
-	logger(`${camelFileName}.${styleType} created`);
+	logger(`${camelFileName}.${type} created`);
 }
 
 export function createDirectoryByPath(pathTo) {
@@ -58,7 +58,7 @@ export function createTestFile(camelFileName, pathTo, type) {
 		tsxStream.write('\n');
 
 		tsxStream.write(`
-describe('App component', () => {
+describe('${camelFileName} component', () => {
 	test('it renders', () => {
 		render(<${camelFileName} />);
 	});

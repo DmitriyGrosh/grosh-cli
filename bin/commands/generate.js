@@ -21,6 +21,6 @@ export function generate(pathTo, filename, options) {
 	createBarrelIndex(camelFilename, rootPath, languageExtension);
 
 	if (isTest) {
-		createTestFile(camelFilename, rootPath, languageExtension);
+		createTestFile(camelFilename, rootPath, `${languageExtension}x`);
 	}
 }
