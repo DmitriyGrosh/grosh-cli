@@ -6,7 +6,7 @@ export function createBarrelIndex(camelFileName, pathTo, type) {
 	const tsStream = fs.createWriteStream(`${pathTo}index.${type}`, 'utf8');
 
 	tsStream.once('open', function() {
-		tsStream.write(`export { ${camelFileName} } from "./${camelFileName}"\n`);
+		tsStream.write(`export { ${camelFileName} } from "./${camelFileName}";\n`);
 		tsStream.end();
 	});
 
@@ -43,4 +43,37 @@ export function createJSXFile(camelFileName, pathTo, type, styleType = FILE_EXTE
 
 export function createDirectoryByPath(pathTo) {
 	fs.mkdirSync(pathTo,{ recursive: true });
+}
+
+
+export function createTestFile(camelFileName, pathTo, type) {
+	const tsxStream = fs.createWriteStream(`${pathTo}${camelFileName}.test.${type}`, 'utf8');
+
+	tsxStream.once('open', function () {
+		tsxStream.write('import React from "react";\n');
+		tsxStream.write('import { render, screen } from "@testing-library/react";\n');
+		tsxStream.write('import renderer from "react-test-renderer";\n');
+		tsxStream.write('\n');
+		tsxStream.write(`import { ${camelFileName} } from "./${camelFileName}";`);
+		tsxStream.write('\n');
+
+		tsxStream.write(`
+describe('App component', () => {
+	test('it renders', () => {
+		render(<${camelFileName} />);
+	});
+});
+`);
+
+		tsxStream.write(`
+test("it renders a correct snapshot", () => {
+	const tree = renderer.create(<${camelFileName} />).toJSON();
+	expect(tree).toMatchSnapshot();
+});
+		`);
+
+		tsxStream.end();
+	});
+
+	logger(`${camelFileName}.test.${type} created`);
 }
