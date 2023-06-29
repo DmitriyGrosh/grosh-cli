@@ -1,6 +1,6 @@
 {
   "name": "grosh-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cli for create react components",
   "main": "index.js",
   "type": "module",
