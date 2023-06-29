@@ -1,8 +1,8 @@
 #! /usr/bin/env node
-const { program } = require('commander');
+import { program } from 'commander';
 
-const { FILE_EXTENSION_CONST } = require("./utils/file-extension");
-const { generate } = require("./commands/generate");
+import { generate } from"./commands/generate.js";
+import { FILE_EXTENSION_CONST } from "./utils/const.js";
 
 program
   .command('generate <path> <filename>')

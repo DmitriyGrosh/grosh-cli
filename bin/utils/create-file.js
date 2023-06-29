@@ -1,21 +1,26 @@
-const fs = require("fs");
-const { FILE_EXTENSION_CONST } = require("./file-extension");
+import fs from "fs";
+import { logger } from "./logger.js";
+import { FILE_EXTENSION_CONST } from "./const.js";
 
-function createBarrelIndex(camelFileName, pathTo, type) {
+export function createBarrelIndex(camelFileName, pathTo, type) {
 	const tsStream = fs.createWriteStream(`${pathTo}index.${type}`, 'utf8');
 
 	tsStream.once('open', function() {
 		tsStream.write(`export { ${camelFileName} } from "./${camelFileName}"\n`);
 		tsStream.end();
 	});
+
+	logger(`index.${type} created`);
 }
 
-function createStyleFile(camelFileName, pathTo, type) {
+export function createStyleFile(camelFileName, pathTo, type) {
 	fs.writeFileSync(`${pathTo}${camelFileName}.${type}`, '');
+
+	logger(`${camelFileName}.${type} created`);
 }
 
 
-function createJSXFile(camelFileName, pathTo, type, styleType = FILE_EXTENSION_CONST.SCSS) {
+export function createJSXFile(camelFileName, pathTo, type, styleType = FILE_EXTENSION_CONST.SCSS) {
 	const tsxStream = fs.createWriteStream(`${pathTo}${camelFileName}.${type}`, 'utf8');
 
 	tsxStream.once('open', function() {
@@ -32,11 +37,10 @@ function createJSXFile(camelFileName, pathTo, type, styleType = FILE_EXTENSION_C
 		tsxStream.write(`export const ${camelFileName} = () => (<></>);\n`);
 		tsxStream.end();
 	});
+
+	logger(`${camelFileName}.${styleType} created`);
 }
 
-function createDirectoryByPath(pathTo) {
+export function createDirectoryByPath(pathTo) {
 	fs.mkdirSync(pathTo,{ recursive: true });
 }
-
-
-module.exports = { createJSXFile, createBarrelIndex, createStyleFile, createDirectoryByPath };

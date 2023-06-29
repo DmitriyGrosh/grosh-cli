@@ -2,7 +2,7 @@ function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function snakeToCamel(str){
+export function snakeToCamel(str){
 	const capitalLetter = capitalizeFirstLetter(str);
 
 	return capitalLetter.replace(
@@ -10,5 +10,3 @@ function snakeToCamel(str){
 	  (_, char) => char.toUpperCase()
 	);
 }
-
-module.exports = { snakeToCamel };

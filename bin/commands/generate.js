@@ -1,13 +1,13 @@
-const { FILE_EXTENSION_CONST } = require("../utils/file-extension");
-const { snakeToCamel } = require("../utils/to-string");
-const {
+import { snakeToCamel } from "../utils/to-string.js";
+import {
 	createStyleFile,
 	createBarrelIndex,
 	createJSXFile,
 	createDirectoryByPath,
-} = require("../utils/create-file");
+} from "../utils/create-file.js";
+import { FILE_EXTENSION_CONST } from "../utils/const.js";
 
-function generate(pathTo, filename, options) {
+export function generate(pathTo, filename, options) {
 	const styleExtension = options[FILE_EXTENSION_CONST.STYLE];
 	const languageExtension = options[FILE_EXTENSION_CONST.LANGUAGE];
 
@@ -19,5 +19,3 @@ function generate(pathTo, filename, options) {
 	createJSXFile(camelFilename, rootPath, `${languageExtension}x`, styleExtension);
 	createBarrelIndex(camelFilename, rootPath, languageExtension);
 }
-
-module.exports = { generate };
