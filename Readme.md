@@ -47,9 +47,10 @@ grosh-cli generate components header
 📦react-project-name
  ┣ 📂src
  ┃ ┣ 📂components
- ┃ ┃ ┣ 📜index.ts
- ┃ ┃ ┣ 📜Header.tsx
- ┃   ┗ 📜Header.scss
+ ┃   ┗ 📂components
+ ┃     ┣ 📜index.ts
+ ┃     ┣ 📜Header.tsx
+ ┃     ┗ 📜Header.scss
  ┣ 📂node_modules
  ┣ 📜.gitignore
  ┣ 📜package-lock.json
