@@ -1,0 +1,22 @@
+{
+  "name": "grosh-cli",
+  "version": "1.0.0",
+  "description": "cli for create react components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "grosh-cli": "./bin/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^11.0.0",
+    "conf": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2"
+  }
+}
