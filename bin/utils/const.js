@@ -4,5 +4,6 @@ export const FILE_EXTENSION_CONST = {
 	INDEX: 'index',
 	STYLE: 'style',
 	LANGUAGE: 'language',
-	TEST: 'test'
+	TEST: 'test',
+	STORYBOOK: 'sb'
 };

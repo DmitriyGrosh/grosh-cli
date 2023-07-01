@@ -3,7 +3,7 @@ import {
 	createStyleFile,
 	createBarrelIndex,
 	createJSXFile,
-	createDirectoryByPath, createTestFile,
+	createDirectoryByPath, createTestFile, createStorybookFile,
 } from "../utils/create-file.js";
 import { FILE_EXTENSION_CONST } from "../utils/const.js";
 
@@ -11,8 +11,10 @@ export function generate(pathTo, filename, options) {
 	const styleExtension = options[FILE_EXTENSION_CONST.STYLE];
 	const languageExtension = options[FILE_EXTENSION_CONST.LANGUAGE];
 	const isTest = options[FILE_EXTENSION_CONST.TEST];
+	const isStorybook = options[FILE_EXTENSION_CONST.STORYBOOK]
 
-	const camelFilename = snakeToCamel(filename);
+	const camelFilename = snakeToCamel(filename, true);
+	// const notCapitalizeCamelFilename = snakeToCamel(filename, false);
 	const rootPath = `./src/${pathTo}/${filename}/`;
 
 	createDirectoryByPath(rootPath);
@@ -22,5 +24,9 @@ export function generate(pathTo, filename, options) {
 
 	if (isTest) {
 		createTestFile(camelFilename, rootPath, `${languageExtension}x`);
+	}
+
+	if (isStorybook) {
+		createStorybookFile(rootPath, languageExtension, camelFilename);
 	}
 }
